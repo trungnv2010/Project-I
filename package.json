@@ -1,0 +1,23 @@
+{
+  "name": "car",
+  "version": "1.0.0",
+  "description": "",
+  "main": "car.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trungnv2010/Project-I.git"
+  },
+  "author": "TrungNV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trungnv2010/Project-I/issues"
+  },
+  "homepage": "https://github.com/trungnv2010/Project-I#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3"
+  }
+}
