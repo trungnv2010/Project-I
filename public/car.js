@@ -4,10 +4,10 @@ var car = function(game){
     this.game = game;
 
     this.x = 50;
-    this.y = 50;
+    this.y = 100;
 
     this.degree = 0;
-    this.speed = 3;
+    this.speed = 10;
 
 
     this.img = null;
@@ -20,7 +20,7 @@ var car = function(game){
             self.loaded = true;
             
         }
-        this.img.src = 'Car.png';
+        this.img.src = './Image/Car.png';
         
 
     }
@@ -29,11 +29,11 @@ var car = function(game){
         
         if (this.game.upKeyIsPressed || this.game.downKeyIsPressed){
             if (this.game.leftKeyIsPressed){
-                this.degree -= oneDegree;
+                this.degree -= 2 * oneDegree;
             }
 
             if (this.game.rightKeyIsPressed){
-                this.degree += oneDegree;
+                this.degree += 2 * oneDegree;
             }
         }
         
@@ -44,6 +44,10 @@ var car = function(game){
         if (this.game.downKeyIsPressed){
             self.goBackWard();
         }
+        
+        if (this.x >=1785 || this.x <=0 || this.y <=4) {
+            this.game.gameOver = true;
+           }
     }   
 
     this.goForward = function(){
@@ -69,6 +73,7 @@ var car = function(game){
             this.game.context.rotate(this.degree);
             this.game.context.drawImage(this.img, -47, -22);
             this.game.context.restore();
+            
         }
     }
 }
