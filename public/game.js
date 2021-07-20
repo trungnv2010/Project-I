@@ -11,9 +11,50 @@ const ctx = canvas.getContext('2d');
 let score = 0;
 let gameFrame = 0;
 
- console.log("image loaded");
+ 
 
 ctx.font = '50px Georgia'
+
+//init
+function init(){
+    score = 0;
+    clicked = true;
+    time = 300;
+    gameFrame = 0;
+    car = new Car();
+    bubblesArray = [];
+    itemArray = [];
+    healthBar = new HealthBar();
+    background = new Background();
+
+}
+
+//setting time
+//const startingMinutes = 5;
+let time = 300;
+countdown = document.getElementById('countdown');
+function updateCountDown(){
+    if (clicked){
+        if (time > 0) time--;
+        const minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        if (seconds > 9){
+            countdown.innerHTML = "0"+minutes + ":" + seconds;
+        } else {
+            countdown.innerHTML = "0"+minutes + ":" + "0" + seconds;
+        }
+        if (time == 0 ){
+        healthBar.width = -1;
+        }
+    
+    console.log(time);
+    }
+    
+    
+
+}
+setInterval(updateCountDown, 1000);
+//console.log(typeof(time));
 // background
 
 class Background{
@@ -27,7 +68,7 @@ class Background{
         ctx.drawImage(this.Image, this.x, this.y, canvas.width, canvas.height);
     }
 }
-const background = new Background();
+let background = new Background();
 //controller
 
 const controller = {
@@ -38,7 +79,7 @@ const controller = {
 }
 
 document.addEventListener('keydown', function(event){
-    console.log(event.key);
+   
    if (event.key == 'ArrowLeft'){
        controller.leftKeyIsPressed = true;
    } else if (event.key == 'ArrowUp'){
@@ -48,7 +89,7 @@ document.addEventListener('keydown', function(event){
    } else {
        controller.downKeyIsPressed = true;
    }
-   console.log(controller.leftKeyIsPressed, controller.rightKeyIsPressed, controller.upKeyIsPressed, controller.downKeyIsPressed);
+  
 });
 document.addEventListener('keyup', function(event){
     if (event.key == 'ArrowLeft'){
@@ -62,7 +103,7 @@ document.addEventListener('keyup', function(event){
     }
 });
 
-console.log(controller.leftKeyIsPressed, controller.rightKeyIsPressed, controller.upKeyIsPressed, controller.downKeyIsPressed);
+
 
 
 
@@ -130,10 +171,65 @@ class Car{
     }
 }
 
-const car = new Car();
+let car = new Car();
+
+//Start Game
+let clicked = false;
+const wrapper = document.getElementById('wrapper');
+const startGame = document.getElementById("startGame");
+
+startGame.addEventListener('click', function(event){
+    init();
+    animate();
+    wrapper.style.display = 'none';
+    console.log('start');
+    
+    
+
+});
+// game over
+const yourScore = document.getElementById('yourScore');
+function gameOver(){
+    if (healthBar.width < 0){
+        cancelAnimationFrame(animateId);
+        wrapper.style.display = 'flex';
+        yourScore.innerHTML = score;
+    }
+}
+
+
+// create healthy bar
+class HealthBar{
+    constructor(){
+        this.x = canvas.width - 500;
+        this.y = 20;
+        this.color = "red";
+        this.width = 450;
+        this.maxHealth = 450;
+        this.height = 25;
+       
+    }
+    update(){
+        ctx.fillRect(this.x, this.y, 0, this.height);
+    }
+
+    draw(){
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#333";
+        ctx.fillStyle = this.color;
+        if (this.width > 0){
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        } else {
+            ctx.fillRect(this.x, this.y, 0, this.height);
+        }
+        ctx.strokeRect(this.x, this.y, this.maxHealth, this.height);
+    }
+}
+
+let healthBar = new HealthBar();
 //item
 
-const itemArray = [];
+let itemArray = [];
 class Item{
     constructor(){
         this.x = Math.random() * canvas.width;
@@ -194,7 +290,7 @@ function handleItem(){
 
 }
 //bubles
-const bubblesArray = [];
+let bubblesArray = [];
 class Bubble {
     constructor(){
         this.x = Math.random() * canvas.width;
@@ -235,7 +331,7 @@ function handleBubbles(){
     if (gameFrame % 50 == 0){
         if (bubblesArray.length <7){
         bubblesArray.push(new Bubble());
-        console.log(bubblesArray.length);
+       
         }
     }
     for (i = 0; i < bubblesArray.length; i++){
@@ -261,28 +357,43 @@ function handleBubbles(){
                 car.x += speedX * 4;
                 car.y += speedY * 4;   
             }
+            
+                healthBar.width -= 50;
+                
+             
+            
         }
 
 
     }
 }
 //loop
-
+let animateId;
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
     background.draw();
     car.update();
     handleBubbles();
     handleItem();
     car.draw();
+    
     ctx.fillStyle = 'black';
     ctx.fillText('Score ' + score, 10, 50);
     gameFrame++;
-    requestAnimationFrame(animate);
+    healthBar.draw();
+   
+    
+    animateId = requestAnimationFrame(animate);
+    gameOver();
+    //console.log(time);
+    
+  
+    
     
 }
+//animate();
 
-animate();
 
 
 
