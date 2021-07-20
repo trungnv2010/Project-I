@@ -14,7 +14,7 @@ var background = function(game){
             self.loaded = true;
             console.log('image loaded')
         }
-        this.image.src = "map1.jpg"
+        this.image.src = "./Image/map02.png"
     }
 
     this.update = function(){
@@ -25,7 +25,7 @@ var background = function(game){
 
         
         if (this.loaded == true){
-        this.game.context.drawImage(this.image, 0, 0, this.game.canvas.width, this.game.canvas.height);
+        this.game.context.drawImage(this.image, 0, 0, this.game.canvas.width , this.game.canvas.height);
         }   
     }
 }

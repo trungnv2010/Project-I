@@ -3,11 +3,11 @@ const oneDegree = Math.PI/180;
 var car = function(game){
     this.game = game;
 
-    this.x = 50;
-    this.y = 100;
+    this.x = 150;
+    this.y = 200;
 
     this.degree = 0;
-    this.speed = 10;
+    this.speed = 5;
 
 
     this.img = null;
@@ -20,7 +20,7 @@ var car = function(game){
             self.loaded = true;
             
         }
-        this.img.src = './Image/Car.png';
+        this.img.src = './Image/redCar.png';
         
 
     }
@@ -44,10 +44,10 @@ var car = function(game){
         if (this.game.downKeyIsPressed){
             self.goBackWard();
         }
-        
-        if (this.x >=1785 || this.x <=0 || this.y <=4) {
-            this.game.gameOver = true;
-           }
+       
+       // if (this.x >=1785 || this.x <=0 || this.y <=4) {
+         //   this.game.gameOver = true;
+         //  }
     }   
 
     this.goForward = function(){
@@ -76,4 +76,21 @@ var car = function(game){
             
         }
     }
+
+    this.collision = function(){
+        var speedX = this.speed * Math.cos(this.degree);
+        var speedY = this.speed * Math.sin(this.degree);
+        if (this.x < 0 || this.x > this.game.canvas.width - 100 || this.y < 4 || this.y > this.game.canvas.height - 50){
+            if (this.game.upKeyIsPressed){
+                this.x -= speedX * 2;
+                this.y -= speedY * 2;
+            } else {
+                this.x += speedX * 2;
+                this.y += speedY * 2;   
+            }
+            
+        }
+    }
+
+   
 }
