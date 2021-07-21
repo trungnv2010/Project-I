@@ -46,6 +46,10 @@ io.on("connection", function(socket){
         console.log("go backward stop");
         socket.broadcast.emit("go-backward-stop")
     });
+    socket.on("go-straight", function(){
+        console.log("go straight");
+        socket.broadcast.emit("go-straight");
+    });
 });
 
 app.get("/", function(req, res){

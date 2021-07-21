@@ -38,6 +38,10 @@ socket.on("go-forward", function(){
         console.log("go backward stop"); 
         controller.downKeyIsPressed =false;
     });
+    socket.on("go-straight", function(){
+        controller.rightKeyIsPressed = "false";
+        controller.leftKeyIsPressed = "false";
+    });
 $(document).ready(function(){
    console.log("say hi");
 })
