@@ -50,6 +50,10 @@ io.on("connection", function(socket){
         console.log("go straight");
         socket.broadcast.emit("go-straight");
     });
+    socket.on("start-game", function(){
+        socket.broadcast.emit("start-game");
+        console.log("start game");
+    });
 });
 
 app.get("/", function(req, res){

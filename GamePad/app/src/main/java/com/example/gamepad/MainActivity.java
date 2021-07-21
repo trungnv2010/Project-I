@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnDown;
     private OrientationEventListener myOrientationEventListener;
     private String direction = "";
+    private Button btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnDown = findViewById(R.id.btnGoBackward);
         btnUp = findViewById(R.id.btnGoForward);
         btnRight = findViewById(R.id.btnRight);
+        btnStart = findViewById(R.id.btnStart);
 
         btnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -88,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //ListenRotate();
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSocket.emit("start-game");
+            }
+        });
     }
     void ListenRotate() {
         myOrientationEventListener = new OrientationEventListener(getApplicationContext(), 215) {

@@ -42,6 +42,10 @@ socket.on("go-forward", function(){
         controller.rightKeyIsPressed = "false";
         controller.leftKeyIsPressed = "false";
     });
+    socket.on("start-game", function(){
+        
+        gameStart();
+    });
 $(document).ready(function(){
    console.log("say hi");
 })
