@@ -47,7 +47,7 @@ function updateCountDown(){
         healthBar.width = -1;
         }
     
-    console.log(time);
+    
     }
     
     
@@ -78,30 +78,30 @@ const controller = {
     downKeyIsPressed : false
 }
 
-document.addEventListener('keydown', function(event){
+// document.addEventListener('keydown', function(event){
    
-   if (event.key == 'ArrowLeft'){
-       controller.leftKeyIsPressed = true;
-   } else if (event.key == 'ArrowUp'){
-       controller.upKeyIsPressed = true;
-   } else if (event.key == 'ArrowRight'){
-       controller.rightKeyIsPressed = true;
-   } else {
-       controller.downKeyIsPressed = true;
-   }
+//    if (event.key == 'ArrowLeft'){
+//        controller.leftKeyIsPressed = true;
+//    } else if (event.key == 'ArrowUp'){
+//        controller.upKeyIsPressed = true;
+//    } else if (event.key == 'ArrowRight'){
+//        controller.rightKeyIsPressed = true;
+//    } else {
+//        controller.downKeyIsPressed = true;
+//    }
   
-});
-document.addEventListener('keyup', function(event){
-    if (event.key == 'ArrowLeft'){
-        controller.leftKeyIsPressed = false;
-    } else if (event.key == 'ArrowUp'){
-        controller.upKeyIsPressed = false;
-    } else if (event.key == 'ArrowRight'){
-        controller.rightKeyIsPressed = false;
-    } else {
-        controller.downKeyIsPressed = false;
-    }
-});
+// });
+// document.addEventListener('keyup', function(event){
+//     if (event.key == 'ArrowLeft'){
+//         controller.leftKeyIsPressed = false;
+//     } else if (event.key == 'ArrowUp'){
+//         controller.upKeyIsPressed = false;
+//     } else if (event.key == 'ArrowRight'){
+//         controller.rightKeyIsPressed = false;
+//     } else {
+//         controller.downKeyIsPressed = false;
+//     }
+// });
 
 
 
@@ -182,7 +182,7 @@ startGame.addEventListener('click', function(event){
     init();
     animate();
     wrapper.style.display = 'none';
-    console.log('start');
+    
     
     
 
@@ -371,7 +371,7 @@ function handleBubbles(){
 let animateId;
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+    console.log(controller.leftKeyIsPressed);
     background.draw();
     car.update();
     handleBubbles();
