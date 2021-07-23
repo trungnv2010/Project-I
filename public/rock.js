@@ -1,4 +1,4 @@
-class Bubble {
+class Rock {
     constructor(){
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height; 

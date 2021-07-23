@@ -23,7 +23,7 @@ function init(){
     time = 300;
     gameFrame = 0;
     car = new Car();
-    bubblesArray = [];
+    rockArray = [];
     itemArray = [];
     healthBar = new HealthBar();
     background = new Background();
@@ -143,29 +143,29 @@ function handleItem(){
 
 }
 //bubles
-let bubblesArray = [];
+let rockArray = [];
 
-function handleBubbles(){
+function handlerock(){
     if (gameFrame % 50 == 0){
-        if (bubblesArray.length <7){
-        bubblesArray.push(new Bubble());
+        if (rockArray.length <7){
+        rockArray.push(new Rock());
        
         }
     }
-    for (i = 0; i < bubblesArray.length; i++){
-        bubblesArray[i].update();
-        bubblesArray[i].draw();  
+    for (i = 0; i < rockArray.length; i++){
+        rockArray[i].update();
+        rockArray[i].draw();  
     }
-    for (i = 0; i < bubblesArray.length; i++){
+    for (i = 0; i < rockArray.length; i++){
         
-        if (bubblesArray[i].distance < bubblesArray[i].radius + car.radius + 8){
-            if (bubblesArray[i].counted > 5){
+        if (rockArray[i].distance < rockArray[i].radius + car.radius + 8){
+            if (rockArray[i].counted > 5){
                 //score++;
-                //bubblesArray[i].counted = true;
-                bubblesArray.splice(i , 1);
+                //rockArray[i].counted = true;
+                rockArray.splice(i , 1);
                 continue;
             }
-            bubblesArray[i].counted++;
+            rockArray[i].counted++;
             var speedX = car.speed * Math.cos(car.degree);
             var speedY = car.speed * Math.sin(car.degree);
             if (controller.upKeyIsPressed){
@@ -192,7 +192,7 @@ function animate(){
     console.log(controller.leftKeyIsPressed);
     background.draw();
     car.update();
-    handleBubbles();
+    handlerock();
     handleItem();
     car.collision();
     car.draw();
