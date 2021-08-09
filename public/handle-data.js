@@ -12,11 +12,13 @@ socket.on("go-forward", function(){
     socket.on("go-left", function(){
         console.log("go left");
         controller.leftKeyIsPressed = true;
+        controller.rightKeyIsPressed = false;
     });
     socket.on("go-right", function(){
 
         console.log("go right");
         controller.rightKeyIsPressed = true;
+        controller.leftKeyIsPressed = false;
     });
     socket.on("go-right-stop", function(){
 

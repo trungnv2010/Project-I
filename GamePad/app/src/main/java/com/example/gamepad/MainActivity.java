@@ -36,35 +36,14 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         mSocket.connect();
-        btnLeft = findViewById(R.id.btnLeft);
-        btnDown = findViewById(R.id.btnGoBackward);
-        btnUp = findViewById(R.id.btnGoForward);
-        btnRight = findViewById(R.id.btnRight);
-        btnStart = findViewById(R.id.btnStart);
+        //btnLeft = findViewById(R.id.btnLeft);
+        btnDown = findViewById(R.id.Backward);
+        btnUp = findViewById(R.id.Forward);
+        //btnRight = findViewById(R.id.btnRight);
+        btnStart = findViewById(R.id.start);
 
-        btnLeft.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    mSocket.emit("go-left");
-                } else if (event.getAction() == MotionEvent.ACTION_UP){
-                    mSocket.emit("go-left-stop");
-                }
-                return true;
-            }
-        });
 
-        btnRight.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                   mSocket.emit("go-right");
-                } else if (event.getAction() == MotionEvent.ACTION_UP){
-                    mSocket.emit("go-right-stop");
-                }
-                return true;
-            }
-        });
+
 
         btnUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //ListenRotate();
+
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,24 +76,26 @@ public class MainActivity extends AppCompatActivity {
                 mSocket.emit("start-game");
             }
         });
+        ListenRotate();
     }
     void ListenRotate() {
-        myOrientationEventListener = new OrientationEventListener(getApplicationContext(), 215) {
+        myOrientationEventListener = new OrientationEventListener(getApplicationContext(), 1000) {
             @Override
             public void onOrientationChanged(int orientation) {
 
 
-                if (((orientation > 260 && orientation < 270) || (orientation > 85 && orientation < 95)) && direction != "straight"){
+                if ((orientation > 240 && orientation < 290 ) && direction != "straight"){
                     mSocket.emit("go-straight");
+
                     direction = "straight";
 
                 }
-                if (((orientation > 270 ) || (orientation > 95 && orientation < 110)) && direction != "right"){
+                if ((orientation > 270 ) && direction != "right"){
                     mSocket.emit("go-right");
                     direction = "right";
 
                 }
-                if ((( orientation < 260) || (orientation > 75 && orientation < 85)) && direction != "left"){
+                if ((orientation < 260)  && direction != "left"){
                     mSocket.emit("go-left");
                     direction = "left";
 
